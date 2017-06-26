@@ -5,6 +5,7 @@ This script expects to be run with Python 3.5+ and expects several arguments.
 Usage: ./email_script <1> <2> <3> 
 
 1. List of emails in the format 
+
 | Name | Email |
 |------|-------|
 |      |       |
