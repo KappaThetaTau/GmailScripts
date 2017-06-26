@@ -57,6 +57,16 @@ def process_message(message_file):
     message = message.replace('\n', ' ').replace('\r', ' ')
     return message
 
+def send_message(email, receipient, subject, message):
+    email_test = """\
+            From: {0}
+            To: {1}
+            Subject: {2}
+
+            {3}
+            """.format(email, receipient, subject, message)
+
+
 print('Connecting to server...\n')
 server = connect_to_server()
 logged_in, email = login_to_server(server)
