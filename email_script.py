@@ -57,14 +57,18 @@ def process_message(message_file):
     message = message.replace('\n', ' ').replace('\r', ' ')
     return message
 
-def send_message(email, receipient, subject, message):
-    email_test = """\
-            From: {0}
-            To: {1}
-            Subject: {2}
+def send_message(server, email, receipient, subject, message):
+    try:
+        email_text = """\
+                From: {0}
+                To: {1}
+                Subject: {2}
 
-            {3}
-            """.format(email, receipient, subject, message)
+                {3}
+                """.format(email, receipient, subject, message)
+        server.sendmail(email, receipient, email_text)
+    except:
+        print('Error while sending email to {}'.format(receipient))
 
 
 print('Connecting to server...\n')
@@ -76,3 +80,4 @@ if logged_in:
     receipients = process_receipients(sys.argv[1])
     for receipient in recepients:
         send_email(email, receipient, subject, message)
+server.close()
