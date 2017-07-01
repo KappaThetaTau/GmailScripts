@@ -9,7 +9,7 @@ def connect_to_server():
 
 
 def get_credentials():
-    email = input('Which email would you like to use?')
+    email = input('Which email would you like to use?\n')
     password = getpass.getpass(
             'Please input the password to {}: '.format(email))
     return {'email': email, 'password': password}
