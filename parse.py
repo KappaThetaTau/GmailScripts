@@ -1,5 +1,25 @@
 import sys
 import csv
+from optparse import OptionParser
+
+
+def process_arguments():
+    usage = """
+        Usage: %prog subject plaintext_filename [options]
+    """
+    parser = OptionParser(usage=usage, version='%prog 1.0')
+
+    parser.add_option('-c', '--csv',
+                      action='store',
+                      dest='email_csv',
+                      default='./emails.csv',
+                      help='csv containing email addresses')
+    parser.add_option('-f', '--file',
+                      dest='html',
+                      default='',
+                      help='The email in html format')
+    options, args = parser.parse_args()
+    return (options, args)
 
 
 def process_message(message_file):
@@ -11,7 +31,6 @@ def process_message(message_file):
     except Exception as e:
         print(e)
         sys.exit()
-    message = message.replace('\n', ' ').replace('\r', ' ')
     return message
 
 

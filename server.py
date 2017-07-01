@@ -9,8 +9,7 @@ def connect_to_server():
 
 
 def get_credentials():
-    # for other emails, use input('Which email would you like to use?')
-    email = 'thetatau.media@gmail.com'
+    email = input('Which email would you like to use?')
     password = getpass.getpass(
             'Please input the password to {}: '.format(email))
     return {'email': email, 'password': password}
