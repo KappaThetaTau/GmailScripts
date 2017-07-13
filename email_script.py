@@ -18,15 +18,15 @@ Use -h to show help"""
 
 opts, args = process_arguments()
 try:
-    if len(args) < 2:
+    if len(args) < 1:
         raise Exception(exception_string)
 except Exception as e:
     print(e)
     sys.exit()
 
 opts = vars(opts)
-subject = args[0]
-text_file = process_message(args[1])
+subject = input('What would you like the subject of the email to be?\n')
+text_file = process_message(args[0])
 html_file = ''
 if opts['html']:
     html_file = process_message(opts['html'])
@@ -35,8 +35,10 @@ print('Connecting to mail server...')
 server = connect_to_server()
 logged_in, email = login_to_server(server)
 if logged_in:
+    print('Successfully authenticated, sending mail...')
     receipients = process_receipients(opts['email_csv'])
     for receipient in receipients:
         send_message(server, email, receipient, subject, message)
+print('Successfully finished sending email')
 
 server.quit()

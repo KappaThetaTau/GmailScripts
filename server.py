@@ -20,7 +20,7 @@ def login_to_server(server):
     for i in range(3):
         try:
             credentials = get_credentials()
-            print('Authenticating...\n')
+            print('Authenticating...')
             server.login(credentials['email'], credentials['password'])
         except Exception as e:
             print(e)
