@@ -13,7 +13,7 @@ This can be extended to other emails, if not hardcoded
 '''
 
 exception_string = """\
-Usage: ./email_script.py <subject> <message> <message file>
+Usage: ./email_script.py <plaintext_file> <html_file> [options]
 Use -h to show help"""
 
 opts, args = process_arguments()
@@ -27,9 +27,7 @@ except Exception as e:
 opts = vars(opts)
 subject = input('What would you like the subject of the email to be?\n')
 text_file = process_message(args[0])
-html_file = ''
-if opts['html']:
-    html_file = process_message(opts['html'])
+html_file = process_message(args[1])
 message = {'text': text_file, 'html': html_file}
 print('Connecting to mail server...')
 server = connect_to_server()

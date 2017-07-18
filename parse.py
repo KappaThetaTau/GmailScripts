@@ -13,7 +13,7 @@ def process_arguments():
                       action='store',
                       dest='email_csv',
                       default='./emails/emails.csv',
-                      help='csv containing email addresses')
+                      help='csv containing email addresses. \nDEFAULT=\'./emails/emails.csv\'')
     options, args = parser.parse_args()
     return (options, args)
 
