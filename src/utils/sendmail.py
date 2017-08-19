@@ -11,7 +11,7 @@ def create_message(email, receipient, subject, message):
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
     msg['From'] = "Theta Tau - Historians"
-    msg['To'] = '{0} {1}'.format(name['first'], name['last'])
+    msg['To'] = name['first'] + ' ' + name['last']
 
     html = message['html'].replace(
             '$name', name['first']).replace(

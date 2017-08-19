@@ -4,6 +4,19 @@ from optparse import OptionParser
 
 
 def process_arguments():
+    """
+    Processes command line arguments
+
+    Parameters
+    ----------
+    None
+
+    Output
+    ------
+    (options, args) : tuple
+        Contains option parameters and argument parameters in a Key-Value pair
+        Note: must be parsed using vars(...) to get a Python dictionary
+    """
     usage = """
         Usage: %prog plaintext_filename html_filename [options]
     """
@@ -13,12 +26,26 @@ def process_arguments():
                       action='store',
                       dest='email_csv',
                       default='./emails/emails.csv',
-                      help='csv containing email addresses. \nDEFAULT=\'./emails/emails.csv\'')
+                      help='csv containing email addresses. \n\
+                      DEFAULT=\'./emails/emails.csv\'')
     options, args = parser.parse_args()
     return (options, args)
 
 
 def process_message(message_file):
+    """
+    Reads message from a file
+
+    Parameters
+    ----------
+    message_file : string
+        Path to file containing the message
+
+    Output
+    ------
+    message : string
+        String with contents of file
+    """
     message = ""
     try:
         with open(message_file) as f:
@@ -31,6 +58,24 @@ def process_message(message_file):
 
 
 def process_receipients(receipients_csv):
+    """
+    Reads receipients from a file
+
+    Parameters
+    ----------
+    receipients_csv : string
+        Path to a csv containing receipients in format:
+
+        name, email
+
+    Output
+    ------
+    receipients : dict
+        Dictionary with keys
+
+        * name
+        * email
+    """
     receipients = []
     with open(receipients_csv) as f:
         reader = csv.reader(f, delimiter=',')

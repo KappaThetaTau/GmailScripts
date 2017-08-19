@@ -1,0 +1,20 @@
+# nginx configuration file (jinja2 template)
+
+server {
+
+    server_name {{server_name}};
+
+    location / {
+        # Password protection
+        # From http://www.tecmint.com/password-protect-web-directories-in-nginx/
+        auth_basic "Administrator Login";
+        auth_basic_user_file {{auth_basic_user_file}};
+
+        # Sphinx HTML build directory
+        root {{root}};
+    }
+
+}
+
+
+# vim: ts=4 sts=4 sw=4 ft=nginx expandtab
