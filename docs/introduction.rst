@@ -44,13 +44,5 @@ Debian-based Linux
     sudo python3   -m pip install -r requirements.txt
     sudo python3.6 -m pip install -r requirements.txt
 
-=============
-Documentation
-=============
-The documentation source is written in reStructuredText_. To build the docs go
-to ``docs/`` and run ``make html``. There will be instructions on how to view
-the documentation when the build is complete.
-
 
 .. _Python 3: https://www.python.org/downloads/
-.. _reStructuredText: http://docutils.sourceforge.net/rst.html
