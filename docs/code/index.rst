@@ -16,6 +16,16 @@ Utility Module API Documentation
 Parse
 -----
 .. automodule:: utils.parse
-  :members:
-  :inherited-members:
+   :members:
 
+Sendmail
+--------
+
+.. automodule:: utils.sendmail
+   :members:
+
+Server
+------
+
+.. automodule:: utils.server
+   :members: 
