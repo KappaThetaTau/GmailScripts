@@ -9,12 +9,14 @@ def process_arguments():
 
     Parameters
     ----------
-    None
+    None : None
+        There are no parameters for this function
 
-    Output
-    ------
+    Returns
+    -------
     (options, args) : tuple
         Contains option parameters and argument parameters in a Key-Value pair
+
         Note: must be parsed using vars(...) to get a Python dictionary
     """
     usage = """
@@ -41,8 +43,8 @@ def process_message(message_file):
     message_file : string
         Path to file containing the message
 
-    Output
-    ------
+    Returns
+    -------
     message : string
         String with contents of file
     """
@@ -80,14 +82,17 @@ def process_receipients(receipients_csv):
     with open(receipients_csv) as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
-            full_name = row[0].split(' ', 1)
-            if len(full_name) > 1:
-                first_name = full_name[0]
-                last_name = full_name[1]
+            if len(row) == 0:
+                name = {'first': '', 'last': ''}
             else:
-                first_name = full_name[0]
-                last_name = ''
-            name = {'first': first_name, 'last': last_name}
+                full_name = row[0].split(' ', 1)
+                if len(full_name) > 1:
+                    first_name = full_name[0].title()
+                    last_name = full_name[1]
+                else:
+                    first_name = full_name[0]
+                    last_name = ''
+                name = {'first': first_name, 'last': last_name}
             receipient = {'name': name, 'email': row[1]}
             receipients.append(receipient)
     f.close()
