@@ -24,14 +24,17 @@ subject = input('What would you like the subject of the email to be?\n')
 text_file = parse.process_message(args[0])
 html_file = parse.process_message(args[1])
 message = {'text': text_file, 'html': html_file}
+
 print('Connecting to mail server...')
 mail_server = server.connect_to_server()
 logged_in, email = server.login_to_server(mail_server)
+
 if logged_in:
     print('Successfully authenticated, sending mail...')
     receipients = parse.process_receipients(opts['email_csv'])
     for receipient in receipients:
         sendmail.send_message(mail_server, email, receipient, subject, message)
-print('Successfully finished sending email')
+    print('Successfully finished sending email')
+print('Exiting')
 
 mail_server.quit()

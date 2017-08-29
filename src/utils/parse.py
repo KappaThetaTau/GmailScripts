@@ -27,7 +27,7 @@ def process_arguments():
     parser.add_option('-c', '--csv',
                       action='store',
                       dest='email_csv',
-                      default='./emails/emails.csv',
+                      default='./addresses/emails.csv',
                       help='csv containing email addresses. \n\
                       DEFAULT=\'./emails/emails.csv\'')
     options, args = parser.parse_args()
@@ -70,8 +70,8 @@ def process_receipients(receipients_csv):
 
         name, email
 
-    Output
-    ------
+    Returns
+    -------
     receipients : dict
         Dictionary with keys
 
@@ -88,7 +88,7 @@ def process_receipients(receipients_csv):
                 full_name = row[0].split(' ', 1)
                 if len(full_name) > 1:
                     first_name = full_name[0].title()
-                    last_name = full_name[1]
+                    last_name = full_name[1].title()
                 else:
                     first_name = full_name[0]
                     last_name = ''
