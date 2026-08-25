@@ -1,0 +1,5 @@
+$greeting $name,
+
+We'd love to see you at our next rush event. Reply to this email if you have any questions!
+
+Theta Tau - Kappa Chapter
