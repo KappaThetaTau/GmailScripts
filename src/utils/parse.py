@@ -29,7 +29,21 @@ def process_arguments():
                       dest='email_csv',
                       default='./addresses/emails.csv',
                       help='csv containing email addresses. \n\
-                      DEFAULT=\'./emails/emails.csv\'')
+                      DEFAULT=\'./addresses/emails.csv\'')
+    parser.add_option('-f', '--from-name',
+                      action='store',
+                      dest='from_name',
+                      default='Theta Tau - Rush Chair',
+                      help='display name shown as the sender. \n\
+                      DEFAULT=\'Theta Tau - Rush Chair\'')
+    parser.add_option('-d', '--delay',
+                      action='store',
+                      type='float',
+                      dest='delay',
+                      default=1.0,
+                      help='seconds to wait between emails so gmail does not \
+                      flag the account for spam. \n\
+                      DEFAULT=1.0')
     options, args = parser.parse_args()
     return (options, args)
 
@@ -63,6 +77,10 @@ def process_receipients(receipients_csv):
     """
     Reads receipients from a file
 
+    Blank lines are ignored, and rows without an email address
+    (e.g. a header row) are skipped with a warning.  A row may
+    also contain just an email address with no name.
+
     Parameters
     ----------
     receipients_csv : string
@@ -72,20 +90,29 @@ def process_receipients(receipients_csv):
 
     Returns
     -------
-    receipients : dict
-        Dictionary with keys
+    receipients : list
+        List of dictionaries with keys
 
         * name
         * email
     """
     receipients = []
-    with open(receipients_csv) as f:
-        reader = csv.reader(f, delimiter=',')
-        for row in reader:
-            if len(row) == 0:
-                name = {'first': '', 'last': ''}
-            else:
-                full_name = row[0].split(' ', 1)
+    try:
+        with open(receipients_csv) as f:
+            reader = csv.reader(f, delimiter=',')
+            for line_number, row in enumerate(reader, start=1):
+                row = [field.strip() for field in row]
+                if len(row) > 1:
+                    full_name, email = row[0], row[1]
+                elif len(row) == 1:
+                    full_name, email = '', row[0]
+                else:
+                    continue
+                if '@' not in email:
+                    print('Skipping line {} of {}: no email address found'
+                          .format(line_number, receipients_csv))
+                    continue
+                full_name = full_name.split(' ', 1)
                 if len(full_name) > 1:
                     first_name = full_name[0].title()
                     last_name = full_name[1].title()
@@ -93,7 +120,8 @@ def process_receipients(receipients_csv):
                     first_name = full_name[0]
                     last_name = ''
                 name = {'first': first_name, 'last': last_name}
-            receipient = {'name': name, 'email': row[1]}
-            receipients.append(receipient)
-    f.close()
+                receipients.append({'name': name, 'email': email})
+    except Exception as e:
+        print(e)
+        sys.exit()
     return receipients
